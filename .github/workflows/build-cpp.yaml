@@ -13,3 +13,8 @@ jobs:
         uses: lukka/run-cmake@v0
         with:
           cmakeListsTxtPath: "${{ github.workspace }}/src/CMakeLists.txt"
+      - name: Upload the generated binary
+        uses: actions/upload-artifact@v1
+        with:
+          name: freshly-created-tutorial
+          path: $(build.artifactstagingdirectory)/tutorial
