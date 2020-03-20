@@ -1,0 +1,3 @@
+#define VERSION @VERSION@
+#define NAME "@PROJECT_NAME@"
+#cmakedefine USE_MYSQUARE
