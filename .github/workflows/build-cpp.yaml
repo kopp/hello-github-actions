@@ -17,4 +17,5 @@ jobs:
         uses: actions/upload-artifact@v1
         with:
           name: freshly-created-tutorial
-          path: "${{ build.artifactstagingdirectory }}/tutorial"
+          path: "${{ runner.temp }}/tutorial"
+        # see available variables https://help.github.com/en/actions/reference/context-and-expression-syntax-for-github-actions#contexts
