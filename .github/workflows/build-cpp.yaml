@@ -20,6 +20,8 @@ jobs:
           path: "${{ runner.temp }}/tutorial"
         # see available variables https://help.github.com/en/actions/reference/context-and-expression-syntax-for-github-actions#contexts
       - name: Create a release
+        id: create_release
+        # this id is used later to access output produced by this action
         uses: actions/create-release@latest
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # This token is provided by Actions
@@ -32,3 +34,12 @@ jobs:
             - Second Change
           draft: false
           prerelease: false
+      - name: add assets to the release
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ steps.create_release.outputs.upload_url }}
+          asset_path: "${{ runner.temp }}/tutorial"
+          asset_name: my-built-tutorial
+          asset_content_type: application/binary
