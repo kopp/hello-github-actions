@@ -13,9 +13,22 @@ jobs:
         uses: lukka/run-cmake@v0
         with:
           cmakeListsTxtPath: "${{ github.workspace }}/src/CMakeLists.txt"
-      - name: Upload the generated binary
+      - name: Upload the generated binary as artefact so that other jobs can use it
         uses: actions/upload-artifact@v1
         with:
           name: freshly-created-tutorial
           path: "${{ runner.temp }}/tutorial"
         # see available variables https://help.github.com/en/actions/reference/context-and-expression-syntax-for-github-actions#contexts
+      - name: Create a release
+        uses: actions/create-release@latest
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # This token is provided by Actions
+        with:
+          tag_name: ${{ github.ref }}
+          release_name: built tutorial ${{ github.ref }}
+          body: |
+            Changes in this Release
+            - First Change
+            - Second Change
+          draft: false
+          prerelease: false
