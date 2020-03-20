@@ -1,0 +1,13 @@
+name: Build C++ Code
+on: [push]
+
+jobs:
+  build:
+    name: Build C++
+    # This job runs on Linux
+    runs-on: ubuntu-latest
+    steps:
+      - name: Run CMake to build
+        uses: lukka/run-cmake@v0
+        with:
+          cmakeListsTxtPath: "${{ github.workspace }}/src/CMakeLists.txt"
