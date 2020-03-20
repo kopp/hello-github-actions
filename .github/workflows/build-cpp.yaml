@@ -26,12 +26,10 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # This token is provided by Actions
         with:
-          tag_name: ${{ github.ref }}
-          release_name: built tutorial ${{ github.ref }}
+          tag_name: build-${{ github.run_number }}
+          release_name: build ${{ github.run_number}} for ${{ github.ref }} (${{ github.sha }})
           body: |
-            Changes in this Release
-            - First Change
-            - Second Change
+            The latest and greatest stuff is in here...
           draft: false
           prerelease: false
       - name: add assets to the release
