@@ -1,0 +1,30 @@
+# https://help.github.com/en/actions/configuring-and-managing-workflows/configuring-a-workflow
+name: Greet Everyone
+# This workflow is triggered on pushes to the repository.
+# use on.schedule a list of cron: "0 * * * *" entries for cron jobs
+# or create a REST API endpoint
+# use on.push.branches or on.push.tags or on.push.paths to filter for stuff
+on: [push]
+
+jobs:
+  build:
+    # Job name is Greeting
+    name: Greeting
+    # This job runs on Linux
+    runs-on: ubuntu-latest
+    steps:
+      # This step uses GitHub's hello-world-javascript-action: https://github.com/actions/hello-world-javascript-action
+      - name: Hello world
+        uses: actions/hello-world-javascript-action@v1
+        with:
+          who-to-greet: 'Mona the Octocat'
+          # this will become WHO_TO_GREET env var
+        id: hello
+      # This step prints an output (time) from the previous step's action.
+      - name: Echo the greeting's time
+        run: echo 'The time was ${{ steps.hello.outputs.time }}.'
+
+        # to run anything in docker use
+        # uses: docker://alpine:3.8
+        # to work with code run an action that
+        # uses: actions/checkout@v2
