@@ -1,5 +1,9 @@
 name: Build C++ Code
-on: [push]
+
+on:
+  push:
+    paths:
+      - .github/workflows/build-cpp.yaml
 
 jobs:
   build:
@@ -41,3 +45,6 @@ jobs:
           asset_path: "${{ runner.temp }}/tutorial"
           asset_name: my-built-tutorial
           asset_content_type: application/binary
+      #- name: remove an old release
+        # github api for apps allows to do "DELETE /repos/:owner/:repo/releases/:release_id" to delete a release
+        # there is an action, https://github.com/ame-yu/action-delete-latest-release that deletes the last release
