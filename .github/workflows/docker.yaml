@@ -1,0 +1,24 @@
+name: Run stuff in a container
+on: [push]
+
+jobs:
+  run_something_in_container:
+    name: Run in Container
+    runs-on: ubuntu-latest
+    container:  # will be used for each step now; can probably ba added to each step as well -- see https://help.github.com/en/actions/reference/workflow-syntax-for-github-actions#jobsjob_idcontainer
+      image: archlinux
+      volumes:
+        - "${{ github.workspace }}:/workspace"
+    # This job runs on Linux
+    steps:
+      - name: Clone Repository
+        uses: actions/checkout@v2
+      - name: get issue
+        run: cat /etc/issue > /workspace/tree.txt
+      - name: list /workspace
+        run: tree /workspace >> /workspace/tree.txt
+      - name: Upload the tree listing
+        uses: actions/upload-artifact@v1
+        with:
+          name: tree-listing
+          path: "${{ github.workspace }}:/workspace/tree.txt"
