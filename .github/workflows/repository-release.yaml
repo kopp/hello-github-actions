@@ -14,6 +14,13 @@ jobs:
       - name: Create an asset with fixed name
         run: echo this release contains content-${{ github.run_number }}.txt > ${{ github.workspace }}/index.txt
 
+      - name: Remove the release with the tag
+        uses: kopp/action-delete-release
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_REPOSITORY: ${{ github.repository }}
+          TAG_NAME: repository
+
       - name: Create a release with always the same tag
         id: create_release
         # this id is used later to access output produced by this action
