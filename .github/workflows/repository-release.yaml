@@ -3,7 +3,6 @@ on: [push]
 
 # push to a single release which should only contain the latest and greatest data
 
-
 jobs:
   build:
     name: Repository Release
