@@ -7,8 +7,7 @@ jobs:
     runs-on: ubuntu-latest
     container:  # will be used for each step now; can probably ba added to each step as well -- see https://help.github.com/en/actions/reference/workflow-syntax-for-github-actions#jobsjob_idcontainer
       image: archlinux
-      volumes:
-        - "${{ github.workspace }}:/workspace"
+      options: -v "${{ github.workspace }}:/workspace"
     # This job runs on Linux
     steps:
       - name: Clone Repository
