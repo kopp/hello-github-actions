@@ -24,4 +24,4 @@ jobs:
         uses: actions/upload-artifact@v1
         with:
           name: tree-listing
-          path: "${{ github.workspace }}:/workspace/tree.txt"
+          path: "${{ github.workspace }}/tree.txt"
