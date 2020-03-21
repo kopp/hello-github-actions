@@ -4,7 +4,10 @@ name: Greet Everyone
 # use on.schedule a list of cron: "0 * * * *" entries for cron jobs
 # or create a REST API endpoint
 # use on.push.branches or on.push.tags or on.push.paths to filter for stuff
-on: [push]
+on:
+  push:
+    paths:
+      - .github/workflows/continuous-integration-workflow.yml
 
 jobs:
   build:
