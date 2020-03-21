@@ -15,11 +15,12 @@ jobs:
         run: echo this release contains content-${{ github.run_number }}.txt > ${{ github.workspace }}/index.txt
 
       - name: Remove the release with the tag
-        uses: kopp/action-delete-release@master
+        uses: kopp/action-delete-release@with-syntax
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           GITHUB_REPOSITORY: ${{ github.repository }}
-          TAG_NAME: repository
+        with:
+          tag_name: repository
 
       - name: Create a release with always the same tag
         id: create_release
