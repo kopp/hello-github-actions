@@ -22,55 +22,21 @@ jobs:
         with:
           tag_name: repository
 
-      - name: Create a release with always the same tag
-        id: create_release
-        # this id is used later to access output produced by this action
-        uses: actions/create-release@latest
+      - name: create release and add files
+        uses: softprops/action-gh-release@v1
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # This token is provided by Actions
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           tag_name: repository
-          release_name: build ${{ github.run_number}} for ${{ github.ref }} (${{ github.sha }}) which will use the same tag as always...
+          name: build ${{ github.run_number}} for ${{ github.ref }} (${{ github.sha }}) which will use the same tag as always...
           body: |
-            The latest and greatest stuff is in here...
+            The latest and greatest stuff (and only that) is in here...
             Now with the content from build ${{ github.run_number }}.
             It should contain
             file index.txt
             file content-${{ github.run_number }}.txt
+          files: |
+            ${{ github.workspace }}/content-${{ github.run_number }}.txt
+            ${{ github.workspace }}/index.txt
           draft: false
           prerelease: false
-
-      - name: add asset content-${{ github.run_number }} to the release
-        uses: actions/upload-release-asset@v1
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: ${{ github.workspace }}/content-${{ github.run_number }}.txt
-          asset_name: content-${{ github.run_number }}.txt
-          asset_content_type: text/plain
-
-      - name: add asset index.txt the release
-        uses: actions/upload-release-asset@v1
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: ${{ github.workspace }}/index.txt
-          asset_name: index.txt
-          asset_content_type: text/plain
-
-          # alternative maybe?
-#      - name: create release and add files directly
-#        uses: softprops/action-gh-release@v1
-#        env:
-#          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-#        with:
-#          upload_url: ${{ steps.create_release.outputs.upload_url }}
-#          files: |
-#            ${{ github.workspace }}/content-${{ github.run_number }}.txt
-#            ${{ github.workspace }}/index.txt
-
-      #- name: remove an old release
-        # github api for apps allows to do "DELETE /repos/:owner/:repo/releases/:release_id" to delete a release
-        # there is an action, https://github.com/ame-yu/action-delete-latest-release that deletes the last release
