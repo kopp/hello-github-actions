@@ -19,7 +19,8 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           GITHUB_REPOSITORY: ${{ github.repository }}
-          TAG_NAME: repository
+        with:
+          tag_name: repository
 
       - name: Create a release with always the same tag
         id: create_release
