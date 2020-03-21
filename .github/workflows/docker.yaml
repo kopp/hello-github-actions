@@ -1,5 +1,9 @@
 name: Run stuff in a container
-on: [push]
+
+on:
+  push:
+    paths:
+      - .github/workflows/docker.yaml
 
 jobs:
   run_something_in_container:
