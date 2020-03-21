@@ -8,10 +8,14 @@ jobs:
     container:  # will be used for each step now; can probably ba added to each step as well -- see https://help.github.com/en/actions/reference/workflow-syntax-for-github-actions#jobsjob_idcontainer
       image: archlinux
       options: -v "${{ github.workspace }}:/workspace"
+      # Note: using volumes did not work, so using this workaround
+      #       see https://stackoverflow.com/a/60202672/2165903
     # This job runs on Linux
     steps:
       - name: Clone Repository
         uses: actions/checkout@v2
+      - name: Install dependencies
+        run: pacman -Sy tree
       - name: get issue
         run: cat /etc/issue > /workspace/tree.txt
       - name: list /workspace
