@@ -16,10 +16,9 @@ jobs:
         run: echo this release contains content-${{ github.run_number }}.txt > ${{ github.workspace }}/index.txt
 
       - name: Remove the release with the tag
-        uses: kopp/action-delete-release@with-syntax
+        uses: kopp/action-delete-release@default-repo
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          GITHUB_REPOSITORY: ${{ github.repository }}
         with:
           tag_name: repository
 
