@@ -1,0 +1,36 @@
+name: Update Release
+on: [push]
+
+# Modify the content of a single release
+
+jobs:
+  build:
+    name: Update Release
+    runs-on: ubuntu-latest
+    steps:
+
+#      - name: Download current release
+#        run: wget https://github.com/$GITHUB_REPOSITORY/releases/tag/fancycow
+      - name: list, what we have
+        run: ls -1 > ${{ github.workspace }}/files.txt
+#
+#      - name: Remove the release with the tag
+#        uses: kopp/action-delete-release@v1
+#        env:
+#          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+#        with:
+#          tag_name: fancycow
+
+      - name: create release and add files
+        uses: softprops/action-gh-release@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          tag_name: fancycow
+          name: fancycow build ${{ github.run_number }} at ${{ github.sha }}
+          body: |
+            Updated content
+          files: |
+            ${{ github.workspace }}/files.txt
+          draft: false
+          prerelease: false
