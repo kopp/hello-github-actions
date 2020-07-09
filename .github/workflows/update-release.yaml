@@ -15,13 +15,13 @@ jobs:
           wget -i old_files.txt --base=https://github.com/kopp/hello-github-actions/releases/download/fancycow/
       - name: list, what we have
         run: ls -1 > ${{ github.workspace }}/files.txt
-#
-#      - name: Remove the release with the tag
-#        uses: kopp/action-delete-release@v1
-#        env:
-#          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-#        with:
-#          tag_name: fancycow
+
+      - name: Remove the release with the tag
+        uses: kopp/action-delete-release@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          tag_name: fancycow
 
       - name: create release and add files
         uses: softprops/action-gh-release@v1
@@ -33,6 +33,6 @@ jobs:
           body: |
             Updated content
           files: |
-            ${{ github.workspace }}/files.txt
+            ${{ github.workspace }}/*
           draft: false
           prerelease: false
