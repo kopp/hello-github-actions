@@ -11,8 +11,8 @@ jobs:
 
       - name: Download current release
         run: |
-          wget https://github.com/kopp/hello-github-actions/releases/download/fancycow/files.txt
-          xargs -I wget 'https://github.com/kopp/hello-github-actions/releases/download/fancycow/{}' < files.txt
+          wget -O old_files.txt https://github.com/kopp/hello-github-actions/releases/download/fancycow/files.txt
+          wget -i old_files.txt --base=https://github.com/kopp/hello-github-actions/releases/download/fancycow/
       - name: list, what we have
         run: ls -1 > ${{ github.workspace }}/files.txt
 #
